@@ -60,7 +60,7 @@ public class CSVWritingWorker<T extends Tuple> extends AbstractWritingWorker<Csv
         gen.writeStartArray();
         for (Object value : item.getValues()) {
             if (value == null) {
-                gen.writeNull();
+                gen.writeString("\\N"); //Can't writeNull because Jackson skips nulls in arrays
             } else if (value instanceof Boolean) {
                 gen.writeBoolean(((Boolean) value).booleanValue());
             } else { // no point in distinguishing numbers etc; all end up as Strings anyway
